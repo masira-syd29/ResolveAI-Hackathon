@@ -16,7 +16,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- 2. Load Assets (Caching for Performance) ---
+# --- 2. Load Assets (Caching for Performance) --- Yes
 # We use @st.cache_data for data that doesn't change
 @st.cache_data
 def load_data(csv_path):
