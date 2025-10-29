@@ -6,3 +6,4 @@ google-generativeai>=0.4.0
 plotly
 folium
 streamlit-folium
+huggingface_hub

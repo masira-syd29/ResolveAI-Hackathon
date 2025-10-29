@@ -81,3 +81,6 @@ GEMINI_API_KEY = "YOUR_API_KEY_GOES_HERE"
 Run the app:
 
 streamlit run app.py
+
+6. You will find the Kaggle Dataset here (4.67GB)
+[https://www.kaggle.com/datasets/josefsieber/311-service-requests-from-2010-to-present?resource=download]

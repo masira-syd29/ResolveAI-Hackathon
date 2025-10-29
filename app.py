@@ -7,6 +7,7 @@ from streamlit_folium import st_folium
 import google.generativeai as genai
 import os
 import json # Import json for safer parsing
+from huggingface_hub import hf_hub_download
 
 # --- 1. Page Configuration ---
 st.set_page_config(
@@ -30,13 +31,61 @@ def load_data(csv_path):
         return None
 
 # We use @st.cache_resource for ML models and API clients
+# @st.cache_resource
+# def load_ml_model(model_path):
+#     try:
+#         model = joblib.load(model_path)
+#         return model
+#     except FileNotFoundError:
+#         st.error(f"Error: Model file not found at {model_path}")
+#         return None
+
+# # Load the assets
+# DATA_FILE = 'maharashtra_simulated_complaints.csv'
+# MODEL_FILE = 'pothole_severity_model.pkl'
+# df = load_data(DATA_FILE)
+# ml_model = load_ml_model(MODEL_FILE)
+
 @st.cache_resource
 def load_ml_model(model_path):
+    
+    # --- 3. THIS IS THE NEW DOWNLOAD LOGIC ---
+    if not os.path.exists(model_path):
+        st.info("Downloading 216MB ML model from Hugging Face...")
+        st.warning("This may take a moment on first boot.")
+        
+        try:
+            # 4. CONFIGURE YOUR REPO DETAILS
+            # Your HF username and the repo name you created
+            REPO_ID = "maseerasayed19/pothole-severity-model" 
+            # The name of the file you uploaded
+            FILENAME = "pothole_severity_model.pkl"
+
+            hf_hub_download(
+                repo_id=REPO_ID,
+                filename=FILENAME,
+                local_dir=".",             # Download to the current directory
+                local_dir_use_symlinks=False, # Recommended for Streamlit
+                # 'local_dir' will make it save as './pothole_severity_model.pkl'
+                # which matches your 'model_path' variable
+            )
+            
+            st.success("Model downloaded successfully!")
+        
+        except Exception as e:
+            st.error(f"Error downloading model from Hugging Face: {e}")
+            st.error("Please double-check your REPO_ID and FILENAME.")
+            return None
+    # --- END OF NEW LOGIC ---
+            
     try:
         model = joblib.load(model_path)
         return model
     except FileNotFoundError:
         st.error(f"Error: Model file not found at {model_path}")
+        return None
+    except Exception as e:
+        st.error(f"Error loading model after download: {e}")
         return None
 
 # Load the assets
@@ -44,7 +93,9 @@ DATA_FILE = 'maharashtra_simulated_complaints.csv'
 MODEL_FILE = 'pothole_severity_model.pkl'
 
 df = load_data(DATA_FILE)
+# This will now trigger the download logic if needed
 ml_model = load_ml_model(MODEL_FILE)
+
 
 # --- 3. Gemini AI Helper Functions ---
 @st.cache_resource

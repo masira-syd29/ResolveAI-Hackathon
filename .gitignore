@@ -15,10 +15,8 @@ IDE / OS files
 pycache/
 .DS_Store
 
-Large data files
+# Ignore the large model file
+pothole_severity_model.pkl
 
-We are committing our .csv and .pkl for the hackathon,
-
-so we will NOT ignore them for now.
-
-If they were too big, we'd ignore them and use Git LFS.
+# Ignore the large data file (Good Practice)
+*311_Service_Requests_from_2010_to_Present.csv
