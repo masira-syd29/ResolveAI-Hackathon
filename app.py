@@ -51,8 +51,8 @@ def load_ml_model(model_path):
     
     # --- 3. THIS IS THE NEW DOWNLOAD LOGIC ---
     if not os.path.exists(model_path):
-        st.info("Downloading 216MB ML model from Hugging Face...")
-        st.warning("This may take a moment on first boot.")
+        # st.info("Downloading 216MB ML model from Hugging Face...")
+        # st.warning("This may take a moment on first boot.")
         
         try:
             # 4. CONFIGURE YOUR REPO DETAILS
@@ -70,7 +70,7 @@ def load_ml_model(model_path):
                 # which matches your 'model_path' variable
             )
             
-            st.success("Model downloaded successfully!")
+            # st.success("Model downloaded successfully!")
         
         except Exception as e:
             st.error(f"Error downloading model from Hugging Face: {e}")
