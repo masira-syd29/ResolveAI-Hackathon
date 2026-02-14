@@ -4,13 +4,7 @@ Predict. Prioritize. Resolve. Before it escalates.
 
 This is a prototype solution for the Gen AI Exchange Hackathon (Wild Card Challenge), submitted for the "AI-Powered Governance" problem statement contributed by the State Government of Maharashtra.
 
-🎥 [Link to 3-Minute Demo Video]
-
-(You will add this link here after you record it)
-
-🚀 [Link to Live Working Prototype]
-
-(Add your Streamlit Cloud URL here after you deploy)
+🚀(https://resolveai-hackathon-29ms.streamlit.app/)
 
 1. The Problem
 
