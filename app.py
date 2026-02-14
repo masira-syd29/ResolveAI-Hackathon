@@ -22,7 +22,7 @@ st.set_page_config(
 @st.cache_data
 def load_data(csv_path):
     try:
-        df = pd.read_csv(csv_path)
+        df = pd.read_csv(csv_path, nrows=100000)
         # Convert to datetime (ignoring errors for this prototype)
         df['Created_Date'] = pd.to_datetime(df['Created_Date'], errors='coerce')
         return df
@@ -371,15 +371,9 @@ def show_main_app():
 
 # --- 6. App Controller (Login Check) ---
 # This part handles the session state to show/hide the app
-if "logged_in" not in st.session_state:
-    st.session_state["logged_in"] = False
-
-if st.session_state["logged_in"]:
-    # If logged in, run the main app logic
+# --- 6. App Controller (Direct Access) ---
+if __name__ == "__main__":
     show_main_app()
-else:
-    # If not logged in, show the login page
-    show_login_page()
 
 
 
